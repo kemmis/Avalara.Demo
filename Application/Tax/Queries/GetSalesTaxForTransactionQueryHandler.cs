@@ -8,11 +8,11 @@ using Application.Common.Models;
 
 namespace Application.Tax.Queries
 {
-    class GetSalesTaxForTransactionQueryHandler : IRequestHandlerWrapper<GetSalesTaxForTransactionQuery, SalesTaxDto>
+    public class GetSalesTaxForTransactionQueryHandler : IRequestHandlerWrapper<GetSalesTaxForTransactionQuery, SalesTaxDto>
     {
-        public Task<ServiceResult<SalesTaxDto>> Handle(GetSalesTaxForTransactionQuery request, CancellationToken cancellationToken)
+        public async Task<ServiceResult<SalesTaxDto>> Handle(GetSalesTaxForTransactionQuery request, CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            return ServiceResult.Success(new SalesTaxDto());
         }
     }
 }

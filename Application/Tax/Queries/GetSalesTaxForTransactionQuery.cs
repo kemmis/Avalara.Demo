@@ -6,7 +6,7 @@ using MediatR;
 
 namespace Application.Tax.Queries
 {
-    class GetSalesTaxForTransactionQuery : IRequestWrapper<SalesTaxDto>
+    public class GetSalesTaxForTransactionQuery : IRequestWrapper<SalesTaxDto>
     {
         public decimal BaseCharge { get; set; }
     }

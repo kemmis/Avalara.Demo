@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Application.Tax.Queries
 {
-    class SalesTaxDto
+    public class SalesTaxDto
     {
     }
 }
