@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using AutoMapper;
 using CsvHelper.Configuration.Attributes;
+using Domain.Entities;
 
 namespace Infrastructure.Persistence.Import
 {
+    [AutoMap(typeof(County),ReverseMap = true)]
     class CountyImport
     {
         [Index(0)]
@@ -26,5 +29,5 @@ namespace Infrastructure.Persistence.Import
         }
 
         public int Code => int.Parse(CodeString.TrimStart(new Char[] { '0' }));
-	}
+    }
 }

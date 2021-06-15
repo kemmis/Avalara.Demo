@@ -2,10 +2,14 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
+using AutoMapper;
 using CsvHelper.Configuration.Attributes;
+using Domain.Entities;
 
 namespace Infrastructure.Persistence.Import
 {
+    [AutoMap(typeof(CountyTaxRate), ReverseMap = true)]
+    [AutoMap(typeof(StateTaxRate), ReverseMap = true)]
     class TaxRateImport
     {
         [Index(0)]

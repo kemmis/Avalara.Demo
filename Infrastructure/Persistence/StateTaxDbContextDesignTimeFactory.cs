@@ -17,7 +17,7 @@ namespace Infrastructure.Persistence
                 .Build();
             optionsBuilder.UseSqlServer(configuration.GetConnectionString("StateTaxDbContext"),
                 opts => opts.CommandTimeout((int)TimeSpan.FromMinutes(10).TotalSeconds));
-            return new StateTaxDbContext(optionsBuilder.Options);
+            return new StateTaxDbContext(optionsBuilder.Options, null);
         }
     }
 }

@@ -7,5 +7,6 @@ namespace Domain.Entities
     public class CountyTaxRate : TaxRate
     {
         public County County { get; set; }
+        public int JurisdictionFIPSCode { get; set; }
     }
 }

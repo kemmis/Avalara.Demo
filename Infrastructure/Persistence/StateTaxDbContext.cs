@@ -4,15 +4,20 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Common.Interfaces;
+using AutoMapper;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Infrastructure.Persistence
 {
     class StateTaxDbContext : DbContext, IStateTaxDbContext
     {
-        public StateTaxDbContext(DbContextOptions options) : base(options)
+        private readonly IServiceProvider _serviceProvider;
+
+        public StateTaxDbContext(DbContextOptions options, IServiceProvider serviceProvider) : base(options)
         {
+            _serviceProvider = serviceProvider;
         }
 
         public DbSet<County> Counties { get; set; }
@@ -22,13 +27,13 @@ namespace Infrastructure.Persistence
 
         public async Task MigrateAsync(CancellationToken cancellationToken = default)
         {
-            await Database.EnsureCreatedAsync(cancellationToken);
+            await Database.EnsureDeletedAsync(cancellationToken);
             await Database.MigrateAsync(cancellationToken);
         }
 
         public async Task SeedAsync(CancellationToken cancellationToken = default)
         {
-            await this.SeedData(cancellationToken);
+            await this.SeedData(_serviceProvider.GetRequiredService<IMapper>());
         }
     }
 }

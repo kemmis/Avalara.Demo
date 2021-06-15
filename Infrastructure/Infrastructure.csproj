@@ -5,10 +5,22 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Persistence\Import\SeedData\nc-counties-federal.csv" />
+    <None Remove="Persistence\Import\SeedData\NCR2020Q4AUG17.csv" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Persistence\Import\SeedData\nc-counties-federal.csv" />
+    <EmbeddedResource Include="Persistence\Import\SeedData\NCR2020Q4AUG17.csv" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
     <PackageReference Include="CsvHelper" Version="27.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.7" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.1" />
   </ItemGroup>
 
   <ItemGroup>
