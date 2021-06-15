@@ -25,12 +25,14 @@ namespace Application.Tests.Tax.Queries
         }
 
         [Theory]
-        [InlineData(1, 1, 2)]
-        [InlineData(4.75, 2.25, 7)]
-        [InlineData(0, 0, 0)]
-        [InlineData(0, 7, 7)]
-        [InlineData(3.5, 0, 3.5)]
-        public async Task Handle_CalculatesUsingRates(decimal stateTaxRate, decimal countyTaxRate, decimal expectedTotalRate)
+        [InlineData(1, 1, 2, 100, 2, 102)]
+        [InlineData(4.75, 2.25, 7, 100, 7, 107)]
+        [InlineData(0, 0, 0, 100, 0, 100)]
+        [InlineData(0, 7, 7, 100, 7, 107)]
+        [InlineData(3.5, 0, 3.5, 100, 3.5, 103.5)]
+        public async Task Handle_CalculatesUsingRates(decimal stateTaxRate,
+            decimal countyTaxRate, decimal expectedTotalRate, decimal baseCharge,
+            decimal expectedTotalTaxAmount, decimal expectedFinalAmount)
         {
             var mockRatesFromTheory = new[]
             {
@@ -53,13 +55,15 @@ namespace Application.Tests.Tax.Queries
 
             var request = new GetSalesTaxForTransactionQuery()
             {
-                BaseCharge = 100.00m
+                BaseCharge = baseCharge
             };
 
             var target = mocker.CreateInstance<GetSalesTaxForTransactionQueryHandler>();
             var result = await target.Handle(request);
 
             Assert.Equal(expectedTotalRate, result.Data.TotalRate);
+            Assert.Equal(expectedTotalTaxAmount, result.Data.TotalTaxAmount);
+            Assert.Equal(expectedFinalAmount, result.Data.FinalAmount);
         }
     }
 }

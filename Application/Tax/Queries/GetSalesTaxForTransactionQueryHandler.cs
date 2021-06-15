@@ -20,12 +20,26 @@ namespace Application.Tax.Queries
 
         public async Task<ServiceResult<SalesTaxDto>> Handle(GetSalesTaxForTransactionQuery request, CancellationToken cancellationToken = default)
         {
+            var baseCharge = request.BaseCharge;
             var rates = await _taxRateLocator.GetRatesAsync();
             var totalRates = rates.Sum(r => r.Rate);
+            var itemAmounts = rates.Select(r => new SalesTaxLineItemDto
+            {
+                Type = $"{r.Name} - {r.Type} Tax",
+                Amount = baseCharge * (0.01m * r.Rate),
+                Rate = r.Rate
+            }).ToList();
+
+            var totalTaxAmount = itemAmounts.Sum(item => item.Amount);
+
+            var finalAmount = baseCharge + totalTaxAmount;
 
             var result = new SalesTaxDto()
             {
-                TotalRate = totalRates
+                TotalRate = totalRates,
+                LineItems = itemAmounts,
+                TotalTaxAmount = totalTaxAmount,
+                FinalAmount = finalAmount
             };
 
             return ServiceResult.Success(result);
