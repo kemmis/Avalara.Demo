@@ -23,14 +23,14 @@ namespace Application.Tax.Queries
         public async Task<ServiceResult<SalesTaxDto>> Handle(GetSalesTaxForTransactionQuery request, CancellationToken cancellationToken = default)
         {
             var baseCharge = request.BaseCharge;
-            var allRates = await _taxRateLocator.GetRatesAsync();
+            var allRates = await _taxRateLocator.GetRatesAsync(cancellationToken);
 
             var stateRates = allRates.Where(r => r.GetType() == typeof(StateTaxRate))
-                .EffectiveOn(request.ChargedOn);
+                .EffectiveOn(request.ChargedOn).ToList();
             var countyRates = allRates.Where(r => r.GetType() == typeof(CountyTaxRate))
                 .Cast<CountyTaxRate>()
                 .Where(r => r.County.Name.Equals(request.County, StringComparison.InvariantCultureIgnoreCase))
-                .EffectiveOn(request.ChargedOn);
+                .EffectiveOn(request.ChargedOn).ToList();
 
             var allEffectiveRates = stateRates.Union(countyRates);
             var totalRates = allEffectiveRates.Sum(r => r.GeneralInterstateRate);

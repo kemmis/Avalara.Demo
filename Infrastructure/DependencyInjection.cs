@@ -4,6 +4,7 @@ using System.Reflection;
 using System.Text;
 using Application.Common.Interfaces;
 using Infrastructure.Persistence;
+using Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,6 +16,8 @@ namespace Infrastructure
         public static IServiceCollection AddInfrastructure(this IServiceCollection services,
             IConfiguration configuration)
         {
+            services.AddTransient<ITaxRateLocator, TaxRateLocator>();
+
             services.AddDbContext<StateTaxDbContext>(options =>
                 options.UseSqlServer(
                     configuration.GetConnectionString("StateTaxDbContext"),

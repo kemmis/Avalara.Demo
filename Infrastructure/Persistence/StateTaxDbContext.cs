@@ -20,6 +20,11 @@ namespace Infrastructure.Persistence
             _serviceProvider = serviceProvider;
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
+        }
+
         public DbSet<County> Counties { get; set; }
         public DbSet<CountyTaxRate> CountyTaxRates { get; set; }
         public DbSet<State> States { get; set; }

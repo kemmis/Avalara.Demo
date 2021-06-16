@@ -22,11 +22,14 @@ namespace Infrastructure.Services
         public async Task<IEnumerable<TaxRate>> GetRatesAsync(CancellationToken cancellationToken = default)
         {
             var allStateTaxRates = await _stateTaxDbContext.StateTaxRates.ToListAsync(cancellationToken);
-            var allCountyTaxRates = await _stateTaxDbContext.StateTaxRates
-                .Include(s => s.State)
+            var allCountyTaxRates = await _stateTaxDbContext.CountyTaxRates
+                .Include(s => s.County)
                 .ToListAsync(cancellationToken);
 
-            return allStateTaxRates.Union(allCountyTaxRates);
+            var result = new List<TaxRate>();
+            result.AddRange(allStateTaxRates);
+            result.AddRange(allCountyTaxRates);
+            return result;
         }
     }
 }

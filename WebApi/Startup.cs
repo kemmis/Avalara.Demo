@@ -8,7 +8,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Application;
 using Infrastructure;
+using NJsonSchema.Generation;
+using NSwag;
+using NSwag.AspNetCore;
+using NSwag.Generation.Processors.Security;
 
 namespace WebApi
 {
@@ -25,7 +30,14 @@ namespace WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddInfrastructure(Configuration);
-            services.AddRazorPages();
+            services.AddApplication();
+
+            services.AddControllers();
+
+            services.AddOpenApiDocument(configure =>
+              {
+                  configure.Title = "Avalara Demo API";
+              });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -42,6 +54,13 @@ namespace WebApi
                 app.UseHsts();
             }
 
+            #region Swagger/OpenApi
+
+            app.UseOpenApi();
+            app.UseSwaggerUi3();
+
+            #endregion
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -51,7 +70,7 @@ namespace WebApi
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapRazorPages();
+                endpoints.MapControllers();
             });
         }
     }

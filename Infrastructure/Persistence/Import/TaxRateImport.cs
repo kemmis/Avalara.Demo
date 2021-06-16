@@ -32,6 +32,6 @@ namespace Infrastructure.Persistence.Import
         public string EndDateString { get; set; }
 
         public DateTime BeginDate => DateTime.ParseExact(BeginDateString, "yyyyMMdd", CultureInfo.InvariantCulture);
-        public DateTime EmdDate => DateTime.ParseExact(EndDateString, "yyyyMMdd", CultureInfo.InvariantCulture);
+        public DateTime EndDate => DateTime.ParseExact(EndDateString, "yyyyMMdd", CultureInfo.InvariantCulture);
     }
 }
