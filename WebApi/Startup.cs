@@ -70,6 +70,7 @@ namespace WebApi
             app.UseOpenApi();
             app.UseSwaggerUi3(settings =>
             {
+                settings.Path = "";
                 settings.DocExpansion = "full";
                 settings.DefaultModelsExpandDepth = -1;
             });
