@@ -9,12 +9,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Application;
+using FluentValidation.AspNetCore;
 using Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using NJsonSchema.Generation;
 using NSwag;
 using NSwag.AspNetCore;
 using NSwag.Generation.Processors.Security;
+using WebApi.Filters;
 
 namespace WebApi
 {
@@ -33,8 +35,10 @@ namespace WebApi
             services.AddInfrastructure(Configuration);
             services.AddApplication();
 
-            services.AddControllers()
-                .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+            services.AddControllers(options =>
+            {
+                options.Filters.Add<ApiExceptionFilterAttribute>();
+            }).AddFluentValidation();
 
             services.AddOpenApiDocument(configure =>
             {

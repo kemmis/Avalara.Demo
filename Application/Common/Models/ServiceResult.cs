@@ -8,6 +8,10 @@ namespace Application.Common.Models
     {
         public T Data { get; set; }
 
+        public ServiceResult()
+        {
+        }
+
         public ServiceResult(T data)
         {
             Data = data;

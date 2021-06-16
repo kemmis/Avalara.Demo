@@ -37,7 +37,7 @@ namespace Application.Tax.Queries
             var itemAmounts = allEffectiveRates.Select(r => new SalesTaxLineItemDto
             {
                 Type = $"{r.GetType().Name}",
-                Amount = baseCharge * (0.01m * r.GeneralInterstateRate),
+                Amount = baseCharge * r.GeneralInterstateRate,
                 Rate = r.GeneralInterstateRate
             }).ToList();
 

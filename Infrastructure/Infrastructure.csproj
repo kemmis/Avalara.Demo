@@ -27,4 +27,10 @@
     <ProjectReference Include="..\Application\Application.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+      <_Parameter1>WebApi.IntegrationTests</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
+
 </Project>

@@ -36,11 +36,11 @@ namespace Application.Tests.Tax.Queries
         /// <param name="expectedFinalAmount"></param>
         /// <returns></returns>
         [Theory]
-        [InlineData(1, 1, 2, 100, 2, 102)]
-        [InlineData(4.75, 2.25, 7, 100, 7, 107)]
+        [InlineData(0.01, 0.01, 0.02, 100, 2, 102)]
+        [InlineData(0.0475, 0.0225, 0.07, 100, 7, 107)]
         [InlineData(0, 0, 0, 100, 0, 100)]
-        [InlineData(0, 7, 7, 100, 7, 107)]
-        [InlineData(3.5, 0, 3.5, 100, 3.5, 103.5)]
+        [InlineData(0, 0.07, 0.07, 100, 7, 107)]
+        [InlineData(0.035, 0, 0.035, 100, 3.5, 103.5)]
         public async Task Handle_CalculatesUsingRates(decimal stateTaxRate,
             decimal countyTaxRate, decimal expectedTotalRate, decimal baseCharge,
             decimal expectedTotalTaxAmount, decimal expectedFinalAmount)
