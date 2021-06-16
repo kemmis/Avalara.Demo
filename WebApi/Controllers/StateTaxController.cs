@@ -10,6 +10,14 @@ namespace WebApi.Controllers
 {
     public class StateTaxController : BaseApiController
     {
+        /// <summary>
+        /// Calculates sales tax based on the <c>BaseCharge</c>, the date in which the transaction was <c>ChargedOn</c>,
+        /// Interstate or Intrastate type, and sale type.
+        /// </summary>
+        /// <remarks>
+        /// This is a remark comment.
+        /// </remarks>
+        /// <returns></returns>
         [HttpPost]
         public async Task<ActionResult<SalesTaxDto>> Calculate([FromBody] GetSalesTaxForTransactionQuery request)
         {

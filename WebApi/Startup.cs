@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Application;
 using Infrastructure;
+using Microsoft.AspNetCore.Mvc;
 using NJsonSchema.Generation;
 using NSwag;
 using NSwag.AspNetCore;
@@ -32,12 +33,13 @@ namespace WebApi
             services.AddInfrastructure(Configuration);
             services.AddApplication();
 
-            services.AddControllers();
+            services.AddControllers()
+                .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
             services.AddOpenApiDocument(configure =>
-              {
-                  configure.Title = "Avalara Demo API";
-              });
+            {
+                configure.Title = "Avalara Demo API";
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
