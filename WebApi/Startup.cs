@@ -40,6 +40,11 @@ namespace WebApi
                 options.Filters.Add<ApiExceptionFilterAttribute>();
             }).AddFluentValidation();
 
+            services.Configure<ApiBehaviorOptions>(options =>
+            {
+                options.SuppressModelStateInvalidFilter = true;
+            });
+
             services.AddOpenApiDocument(configure =>
             {
                 configure.Title = "Avalara Demo API";

@@ -20,6 +20,12 @@ namespace Application.Tax.Queries
             RuleFor(v => v.County)
                 .NotEmpty().WithMessage("County is required.")
                 .MustAsync(CountyExists).WithMessage("The specified County was not found.");
+
+            RuleFor(v => v.ChargedOn)
+                .NotEqual(DateTime.MinValue).WithMessage("ChangeOn is required.");
+
+            RuleFor(v => v.BaseCharge)
+                .GreaterThanOrEqualTo(0.01m).WithMessage("BaseCharge must be at least 0.01.");
         }
 
         private async Task<bool> CountyExists(string county, CancellationToken cancellationToken)

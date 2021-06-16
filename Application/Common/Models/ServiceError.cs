@@ -26,12 +26,12 @@ namespace Application.Common.Models
         /// <summary>
         /// Human readable error message
         /// </summary>
-        public string Message { get; }
+        public string Message { get; set; }
 
         /// <summary>
         /// Machine readable error code
         /// </summary>
-        public int Code { get; }
+        public int Code { get; set; }
 
         /// <summary>
         /// Default error for when we receive an exception
