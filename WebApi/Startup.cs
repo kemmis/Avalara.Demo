@@ -59,7 +59,11 @@ namespace WebApi
             #region Swagger/OpenApi
 
             app.UseOpenApi();
-            app.UseSwaggerUi3();
+            app.UseSwaggerUi3(settings =>
+            {
+                settings.DocExpansion = "full";
+                settings.DefaultModelsExpandDepth = -1;
+            });
 
             #endregion
 
