@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Application.Common.Interfaces;
 using Application.Tax.Queries;
@@ -24,6 +25,16 @@ namespace Application.Tests.Tax.Queries
             Assert.NotNull(result);
         }
 
+        /// <summary>
+        /// Tests for Intrastate calculations only.
+        /// </summary>
+        /// <param name="stateTaxRate"></param>
+        /// <param name="countyTaxRate"></param>
+        /// <param name="expectedTotalRate"></param>
+        /// <param name="baseCharge"></param>
+        /// <param name="expectedTotalTaxAmount"></param>
+        /// <param name="expectedFinalAmount"></param>
+        /// <returns></returns>
         [Theory]
         [InlineData(1, 1, 2, 100, 2, 102)]
         [InlineData(4.75, 2.25, 7, 100, 7, 107)]
@@ -34,28 +45,50 @@ namespace Application.Tests.Tax.Queries
             decimal countyTaxRate, decimal expectedTotalRate, decimal baseCharge,
             decimal expectedTotalTaxAmount, decimal expectedFinalAmount)
         {
-            var mockRatesFromTheory = new[]
+            var mockRatesFromTheory = new TaxRate[]
             {
-                new LocationTaxRate()
+                new StateTaxRate()
                 {
-                    Type = LocationTaxRateType.State,
-                    Rate = stateTaxRate
+                     BeginDate = DateTime.Now.AddMonths(-6),
+                     EndDate = DateTime.MaxValue,
+                     GeneralInterstateRate = stateTaxRate
                 },
-                new LocationTaxRate()
+                new CountyTaxRate()
                 {
-                    Type = LocationTaxRateType.County,
-                    Rate = countyTaxRate
+                    BeginDate  = DateTime.Now.AddMonths(-6),
+                    EndDate = DateTime.MaxValue,
+                    GeneralInterstateRate = countyTaxRate,
+                    County = new County()
+                    {
+                        Code = 63,
+                        Name = "Durham"
+                    }
+                },
+                new CountyTaxRate()
+                {
+                    BeginDate  = DateTime.Now.AddMonths(-6),
+                    EndDate = DateTime.MaxValue,
+                    GeneralInterstateRate = countyTaxRate,
+                    County = new County()
+                    {
+                        Code = 55,
+                        Name = "Dare"
+                    }
                 }
             };
 
             var mocker = new AutoMocker();
             var rateLocatorMock = mocker.GetMock<ITaxRateLocator>();
-            rateLocatorMock.Setup(m => m.GetRatesAsync())
+            rateLocatorMock.Setup(m => m.GetRatesAsync(CancellationToken.None))
                 .ReturnsAsync(mockRatesFromTheory);
 
             var request = new GetSalesTaxForTransactionQuery()
             {
-                BaseCharge = baseCharge
+                BaseCharge = baseCharge,
+                County = "Durham",
+                ChargedOn = DateTime.Now,
+                FoodOrDrug = false,
+                OutOfState = false
             };
 
             var target = mocker.CreateInstance<GetSalesTaxForTransactionQueryHandler>();
