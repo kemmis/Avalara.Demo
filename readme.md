@@ -20,3 +20,6 @@ I've setup [NSWAG](https://github.com/RicoSuter/NSwag) and [SwaggerUI](https://g
 
 I have two test projects in the solution. First, the Application.Tests project is an XUnit project that tests the main *Calculate* api call functionality that is handled in the [GetSalesTaxForTransactionQueryHandler](Application/Tax/Queries/GetSalesTaxForTransactionQueryHandler.cs#L14) class. You can view those tests [here](Application.Tests/Tax/Queries/GetSalesTaxForTransactionQueryHandlerTests.cs#L16). In addition, the WebApi.IntegrationTests project actually executes the api call itself, and tests that the [GetSalesTaxForTransactionQueryValidator](Application/Tax/Queries/GetSalesTaxForTransactionQueryValidator.cs#L12) class is working. You can view those tests [here](WebApi.IntegrationTests/Controllers/StateTax/Calculate.cs#L14).
 
+## Other Misc
+
+- API Versioning - Microsoft now [has your back](https://github.com/microsoft/aspnet-api-versioning). It's much easier than it used to be!
