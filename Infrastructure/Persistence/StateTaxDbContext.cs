@@ -32,6 +32,7 @@ namespace Infrastructure.Persistence
 
         public async Task MigrateAsync(CancellationToken cancellationToken = default)
         {
+            Database.SetCommandTimeout(240);
             await Database.EnsureDeletedAsync(cancellationToken);
             await Database.MigrateAsync(cancellationToken);
         }
