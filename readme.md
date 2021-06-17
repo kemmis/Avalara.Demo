@@ -2,6 +2,10 @@
 
 Thank you in advance for checking out my code! Here are a few highlights that might interest you.
 
+## Live Demo
+
+You can view this app here: https://avalara.kemmis.info/.
+
 ## Architecture
 Lately I've been impressed with the [Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html) design pattern. This project gave me a nice opportunity to give this pattern a try. You'll notice that the dependencies are setup in a very particular way.
 
