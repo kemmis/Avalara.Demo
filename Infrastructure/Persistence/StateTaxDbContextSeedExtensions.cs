@@ -19,6 +19,12 @@ namespace Infrastructure.Persistence
     {
         public static async Task SeedData(this StateTaxDbContext stateTaxDbContext, IMapper mapper)
         {
+            // only seed data if the database is empty
+            if (stateTaxDbContext.States.Any())
+            {
+                return;
+            }
+
             var counties = LoadData<CountyImport>("Infrastructure.Persistence.Import.SeedData.nc-counties-federal.csv");
             var rates = LoadData<TaxRateImport>("Infrastructure.Persistence.Import.SeedData.NCR2020Q4AUG17.csv");
 
