@@ -28,7 +28,7 @@ namespace WebApi.Controllers
         /// ### Response
         ///
         /// - All API calls return a base type which includes a boolean `Succeeded` property.
-        /// - If the `Succeeded property is true, then the `Data` property will contain the `SalesTaxDto` values.
+        /// - If the `Succeeded` property is true, then the `Data` property will contain the `SalesTaxDto` values.
         /// - If the `Succeeded` property is false, then the `Error` property will provide a general error reason, while the `Data` property will contain more specific error details.
         /// </remarks>
         /// <returns></returns>

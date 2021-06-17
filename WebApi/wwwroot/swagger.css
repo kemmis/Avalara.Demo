@@ -1,0 +1,74 @@
+﻿.swagger-ui .topbar {
+    display: none;
+}
+
+.swagger-ui .wrapper {
+    padding: 0 !important;
+}
+
+#swagger-ui > section > div.topbar > div > div > form > label > span,
+#swagger-ui > section > div.topbar > div > div > form > label > select {
+    font-size: 12px !important;
+}
+
+.topbar img {
+    height: 30px;
+}
+
+.swagger-ui .info {
+    margin: 20px 0 0 0;
+}
+
+    .swagger-ui .info hgroup.main {
+        margin: 0;
+    }
+
+.swagger-ui .scheme-container {
+    padding: 10px 0;
+}
+
+    .swagger-ui .scheme-container .schemes > label {
+        display: none;
+    }
+
+
+.swagger-ui {
+    position: relative;
+}
+
+.opblock-tag-section.is-open .no-margin {
+    padding: 0;
+}
+
+.swagger-ui .scheme-container {
+    /*position: absolute;*/
+    width: 100%;
+    background: none;
+    top: 0;
+    box-shadow: none;
+}
+
+.opblock-tag {
+    border-radius: 10px;
+    border: 1px solid rgba(59,65,81,.3);
+}
+
+.is-open > h4 {
+    /* box-shadow: 0 1px 3px rgb(0 0 0 / 50%);
+    background: rgba(0,0,0,.02);*/
+}
+
+.is-open {
+    margin-top: 10px;
+}
+
+    .is-open > div.no-margin {
+        padding: 10px;
+    }
+
+
+.swagger-ui .markdown code, .swagger-ui .renderedMarkdown code {
+    padding: 0px 3px !important;
+    color: initial !important;
+    font-size: initial;
+}

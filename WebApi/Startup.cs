@@ -69,7 +69,7 @@ namespace WebApi
 
             services.AddOpenApiDocument(configure =>
             {
-                configure.Title = "Avalara Demo API";
+                configure.Title = "Avalara Demo API by Rafe Kemmis";
             });
         }
 
@@ -93,9 +93,11 @@ namespace WebApi
 
             app.UseSwaggerUi3(settings =>
             {
-                settings.Path = "";
+                settings.Path = string.Empty;
                 settings.DocExpansion = "full";
                 settings.DefaultModelsExpandDepth = -1;
+                settings.DocumentTitle = "Avalara Demo API By Rafe Kemmis";
+                settings.CustomStylesheetPath = "/swagger.css";
             });
 
             #endregion
