@@ -4,8 +4,8 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace WebApi
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/v{version:apiVersion}/[controller]")]
     public abstract class BaseApiController : ControllerBase
     {
         private ISender _mediator;

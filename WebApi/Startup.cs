@@ -12,6 +12,7 @@ using Application;
 using FluentValidation.AspNetCore;
 using Infrastructure;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using NJsonSchema.Generation;
 using NSwag;
 using NSwag.AspNetCore;
@@ -40,9 +41,30 @@ namespace WebApi
                 options.Filters.Add<ApiExceptionFilterAttribute>();
             }).AddFluentValidation();
 
+            services.AddRouting(options =>
+            {
+                options.LowercaseUrls = true;
+            });
+
             services.Configure<ApiBehaviorOptions>(options =>
             {
                 options.SuppressModelStateInvalidFilter = true;
+            });
+
+            services.AddApiVersioning(options =>
+            {
+                options.ReportApiVersions = true;
+            });
+
+            services.AddVersionedApiExplorer(options =>
+            {
+                // add the versioned api explorer, which also adds IApiVersionDescriptionProvider service
+                // note: the specified format code will format the version as "'v'major[.minor][-status]"
+                options.GroupNameFormat = "'v'VVV";
+
+                // note: this option is only necessary when versioning by url segment. the SubstitutionFormat
+                // can also be used to control the format of the API version in route templates
+                options.SubstituteApiVersionInUrl = true;
             });
 
             services.AddOpenApiDocument(configure =>
@@ -68,6 +90,7 @@ namespace WebApi
             #region Swagger/OpenApi
 
             app.UseOpenApi();
+
             app.UseSwaggerUi3(settings =>
             {
                 settings.Path = "";

@@ -9,6 +9,7 @@ using Application.Tax.Queries;
 
 namespace WebApi.Controllers
 {
+    [ApiVersion("1.0")]
     public class StateTaxController : BaseApiController
     {
         /// <summary>
